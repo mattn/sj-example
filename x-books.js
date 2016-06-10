@@ -3,7 +3,7 @@ customElements.define('x-books', class extends sj.Element {
     return `
       <h3>Books</h3>
       <input type="text" class="books-filter" sj-model="filter" sj-keyup="keyup()" placeholder="検索するキーワードを入力して下さい" />
-      <input type="button" sj-disabled="disabled(filter)" value="クリア" />
+      <input type="button" sj-disabled="disabled(filter)" sj-click="clear()" value="クリア" />
       <div class="books-container">
         <div sj-repeat="x in books">
           <div class="item" sj-if="matched(x,filter)" sj-model="x.name" sj-click="clicked($index)">replace here</div>
@@ -17,6 +17,11 @@ customElements.define('x-books', class extends sj.Element {
     this.scope.books = [];
     this.scope.keyup = function() {
       this.scope.filter = this.querySelector('input').value;
+      this.update();
+    };
+    this.scope.clear = function(index) {
+      this.querySelector('input').value = '';
+      this.scope.filter = '';
       this.update();
     };
     this.scope.clicked = function(index) {
