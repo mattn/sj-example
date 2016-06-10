@@ -19,7 +19,7 @@ customElements.define('x-books', class extends sj.Element {
       this.scope.filter = this.querySelector('input').value;
       this.update();
     };
-    this.scope.clear = function(index) {
+    this.scope.clear = function() {
       this.querySelector('input').value = '';
       this.scope.filter = '';
       this.update();
