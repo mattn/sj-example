@@ -22,7 +22,7 @@ customElements.define('x-books', class extends sj.Element {
       location.href = 'http://www.amazon.co.jp/gp/search/?field-keywords=' + encodeURIComponent(this.scope.books[index].name);
     };
     this.scope.matched = function(x,filter) {
-      return filter == '' || x.name.toLowerCase().indexOf(filter.toLowerCase()) != -1;
+      return filter == '' || !x || x.name.toLowerCase().indexOf(filter.toLowerCase()) != -1;
     };
   }
 
