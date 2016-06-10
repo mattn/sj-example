@@ -1,0 +1,3 @@
+[submodule "sj.js"]
+	path = sj.js
+	url = https://github.com/tokuhirom/sj.js.git
