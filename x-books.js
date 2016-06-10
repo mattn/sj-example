@@ -3,6 +3,7 @@ customElements.define('x-books', class extends sj.Element {
     return `
       <h3>Books</h3>
       <input type="text" class="books-filter" sj-model="filter" sj-keyup="keyup()" placeholder="検索するキーワードを入力して下さい" />
+      <input type="button" sj-disabled="disabled(filter)" value="クリア" />
       <div class="books-container">
         <div sj-repeat="x in books">
           <div class="item" sj-if="matched(x,filter)" sj-model="x.name" sj-click="clicked($index)">replace here</div>
@@ -20,6 +21,9 @@ customElements.define('x-books', class extends sj.Element {
     };
     this.scope.clicked = function(index) {
       location.href = 'http://www.amazon.co.jp/gp/search/?field-keywords=' + encodeURIComponent(this.scope.books[index].name);
+    };
+    this.scope.disabled = function(x) {
+      return x == "";
     };
     this.scope.matched = function(x,filter) {
       return filter == '' || !x || x.name.toLowerCase().indexOf(filter.toLowerCase()) != -1;
