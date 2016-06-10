@@ -4,7 +4,7 @@ customElements.define('x-books', class extends sj.Element {
       <h3>Books</h3>
       <input type="text" class="books-filter" sj-model="filter" sj-keyup="keyup()" placeholder="検索するキーワードを入力して下さい" />
       <div class="books-container">
-        <div class="books-list" sj-repeat="x in books">
+        <div sj-repeat="x in books">
           <div class="item" sj-if="matched(x,filter)" sj-model="x.name" sj-click="clicked($index)">replace here</div>
         </div>
       </div>
@@ -41,7 +41,7 @@ window.addEventListener("DOMContentLoaded", function(){
         .then(function(response) {
           return response.json()
         }).then(function(json) {
-	      elem.setBooks(json);
+          elem.setBooks(json);
         });
     })(elems[n]);
   }
