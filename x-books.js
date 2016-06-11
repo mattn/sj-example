@@ -2,8 +2,8 @@ customElements.define('x-books', class extends sj.Element {
   template() {
     return `
       <h3>Books</h3>
-      <input type="text" class="books-filter" sj-model="filter" sj-keyup="keyup()" placeholder="検索するキーワードを入力して下さい" />
-      <input type="button" sj-disabled="disabled(filter)" sj-click="clear()" value="クリア" />
+      <input type="text" class="books-filter" sj-model="filter" sj-keyup="keyup($event)" placeholder="検索するキーワードを入力して下さい" />
+      <input type="button" sj-disabled="!filter" sj-click="clear()" value="クリア" />
       <div class="books-container">
         <div sj-repeat="x in books">
           <div class="item" sj-if="matched(x,filter)" sj-model="x.name" sj-click="clicked($index)">replace here</div>
@@ -13,25 +13,23 @@ customElements.define('x-books', class extends sj.Element {
   }
 
   initialize() {
-    this.scope.filter = '';
-    this.scope.books = [];
-    this.scope.keyup = function() {
-      this.scope.filter = this.querySelector('input').value;
+    var scope = this.scope;
+    scope.filter = '';
+    scope.books = [];
+    scope.keyup = function(e) {
+      scope.filter = e.target.value;
       this.update();
     };
-    this.scope.clear = function() {
-      this.querySelector('input').value = '';
-      this.scope.filter = '';
+    scope.clear = function() {
+      scope.filter = '';
       this.update();
     };
-    this.scope.clicked = function(index) {
-      location.href = 'http://www.amazon.co.jp/gp/search/?field-keywords=' + encodeURIComponent(this.scope.books[index].name);
+    scope.clicked = function(index) {
+      const URI = 'http://www.amazon.co.jp/gp/search/';
+      location.href = URI + `?field-keywords=${encodeURIComponent(scope.books[index].name)}`;
     };
-    this.scope.disabled = function(x) {
-      return x == "";
-    };
-    this.scope.matched = function(x,filter) {
-      return filter == '' || !x || x.name.toLowerCase().indexOf(filter.toLowerCase()) != -1;
+    scope.matched = function(x,filter) {
+      return filter == '' || x.name.toLowerCase().indexOf(filter.toLowerCase()) != -1;
     };
   }
 
