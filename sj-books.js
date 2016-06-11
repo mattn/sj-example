@@ -16,21 +16,19 @@ customElements.define('sj-books', class extends sj.Element {
     var scope = this.scope;
     scope.filter = '';
     scope.books = [];
-    scope.keyup = function(e) {
+    scope.keyup = (e) => {
       scope.filter = e.target.value;
       this.update();
     };
-    scope.clear = function() {
+    scope.clear = () => {
       scope.filter = '';
       this.update();
     };
-    scope.clicked = function(index) {
+    scope.clicked = (index) => {
       const URI = 'http://www.amazon.co.jp/gp/search/';
       location.href = URI + `?field-keywords=${encodeURIComponent(scope.books[index].name)}`;
     };
-    scope.matched = function(x,filter) {
-      return filter == '' || x.name.toLowerCase().indexOf(filter.toLowerCase()) != -1;
-    };
+    scope.matched = (x,filter) => filter == '' || x.name.toLowerCase().indexOf(filter.toLowerCase()) != -1;
   }
 
   setBooks(books) {
@@ -39,15 +37,15 @@ customElements.define('sj-books', class extends sj.Element {
   }
 });
 
-window.addEventListener("DOMContentLoaded", function(){
+window.addEventListener("DOMContentLoaded", () => {
   var elems = document.getElementsByTagName('sj-books');
   for (var n = 0; n < elems.length; n++) {
-    (function(elem) {
+    ((elem) => {
       var ep = elem.getAttribute('endpoint') || '/query';
       fetch(ep)
-        .then(function(response) {
+        .then((response) => {
           return response.json()
-        }).then(function(json) {
+        }).then((json) => {
           elem.setBooks(json);
         });
     })(elems[n]);
