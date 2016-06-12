@@ -6,7 +6,7 @@ customElements.define('sj-books', class extends sj.Element {
       <input type="button" sj-disabled="!this.filter" sj-click="this.clear()" value="クリア" />
       <div class="books-container">
         <div sj-repeat="x in this.books">
-          <div class="item" sj-if="this.matched(x,this.filter)" sj-click="this.clicked($event)">{{x.name}}</div>
+          <div class="item" sj-if="this.matched(x,this.filter)" sj-click="this.clicked($index)">{{x.name}}</div>
         </div>
       </div>
     `;
@@ -23,9 +23,9 @@ customElements.define('sj-books', class extends sj.Element {
       this.filter = '';
       this.update();
     };
-    this.clicked = (e) => {
+    this.clicked = (index) => {
       const URI = 'http://www.amazon.co.jp/gp/search/';
-      location.href = URI + `?field-keywords=${encodeURIComponent(e.target.textContent)}`;
+      location.href = URI + `?field-keywords=${encodeURIComponent(this.books[index].name)}`;
     };
     this.matched = (x,filter) => filter == '' || x.name.toLowerCase().indexOf(filter.toLowerCase()) != -1;
   }
