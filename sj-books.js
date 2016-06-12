@@ -2,37 +2,36 @@ customElements.define('sj-books', class extends sj.Element {
   template() {
     return `
       <h3>Books</h3>
-      <input type="text" class="books-filter" sj-model="filter" sj-keyup="keyup($event)" placeholder="検索するキーワードを入力して下さい" />
-      <input type="button" sj-disabled="!filter" sj-click="clear()" value="クリア" />
+      <input type="text" sj-model="this.filter" sj-keyup="this.keyup($event)" placeholder="検索するキーワードを入力して下さい" class="books-filter" />
+      <input type="button" sj-disabled="!this.filter" sj-click="this.clear()" value="クリア" />
       <div class="books-container">
-        <div sj-repeat="x in books">
-          <div class="item" sj-if="matched(x,filter)" sj-model="x.name" sj-click="clicked($index)">replace here</div>
+        <div sj-repeat="x in this.books">
+          <div class="item" sj-if="this.matched(x,this.filter)" sj-click="this.clicked($event)">{{x.name}}</div>
         </div>
       </div>
     `;
   }
 
   initialize() {
-    var scope = this.scope;
-    scope.filter = '';
-    scope.books = [];
-    scope.keyup = (e) => {
-      scope.filter = e.target.value;
+    this.filter = '';
+    this.books = [];
+    this.keyup = (e) => {
+      this.filter = e.target.value;
       this.update();
     };
-    scope.clear = () => {
-      scope.filter = '';
+    this.clear = () => {
+      this.filter = '';
       this.update();
     };
-    scope.clicked = (index) => {
+    this.clicked = (e) => {
       const URI = 'http://www.amazon.co.jp/gp/search/';
-      location.href = URI + `?field-keywords=${encodeURIComponent(scope.books[index].name)}`;
+      location.href = URI + `?field-keywords=${encodeURIComponent(e.target.textContent)}`;
     };
-    scope.matched = (x,filter) => filter == '' || x.name.toLowerCase().indexOf(filter.toLowerCase()) != -1;
+    this.matched = (x,filter) => filter == '' || x.name.toLowerCase().indexOf(filter.toLowerCase()) != -1;
   }
 
   setBooks(books) {
-    this.scope.books = books;
+    this.books = books;
     this.update();
   }
 });
