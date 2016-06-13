@@ -3,7 +3,7 @@ customElements.define('sj-books', class extends sj.Element {
     return `
       <h3>Books</h3>
       <input type="text" sj-model="this.filter" sj-keyup="this.keyup($event)" placeholder="検索するキーワードを入力して下さい" class="books-filter" />
-      <input type="button" sj-disabled="this.filter" sj-click="this.clear()" value="クリア" />
+      <input type="button" sj-disabled="!!!this.filter" sj-click="this.clear()" value="クリア" />
       <div class="books-container">
         <div sj-repeat="x in this.books">
           <div class="item" sj-if="this.matched(x,this.filter)" sj-click="this.clicked($index)">{{x.name}}</div>
