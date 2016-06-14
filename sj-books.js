@@ -13,6 +13,7 @@ customElements.define('sj-books', class extends sj.Element {
   }
 
   initialize() {
+    this.books = [];
     this.keyup = (e) => {
       this.filter = e.target.value;
       this.update();
