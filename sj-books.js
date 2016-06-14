@@ -25,8 +25,12 @@ customElements.define('sj-books', class extends sj.Element {
     this.matched = (x,filter) => !filter || x.name.toLowerCase().indexOf(filter.toLowerCase()) != -1;
   }
 
-  setBooks(books) {
-    this.books = books;
+  get books() {
+    return this.b;
+  }
+
+  set books(b) {
+    this.b = b;
     this.update();
   }
 });
@@ -40,7 +44,7 @@ window.addEventListener("DOMContentLoaded", () => {
         .then((response) => {
           return response.json()
         }).then((json) => {
-          elem.setBooks(json);
+          elem.books = json;
         });
     })(elems[n]);
   }
