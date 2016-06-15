@@ -22,7 +22,7 @@ customElements.define('sj-books', class extends sj.Element {
       const URI = 'http://www.amazon.co.jp/gp/search/';
       location.href = URI + `?field-keywords=${encodeURIComponent(this.books[index].name)}`;
     };
-    this.matched = (x,filter) => !filter || x.name.toLowerCase().indexOf(filter.toLowerCase()) != -1;
+    this.matched = (x,filter) => !!!filter || x.name.toLowerCase().indexOf(filter.toLowerCase()) != -1;
   }
 
   get books() {
