@@ -2,7 +2,7 @@ customElements.define('sj-books', class extends sj.Element {
   template() {
     return `
       <h3>Books</h3>
-      <input type="text" sj-model="this.filter" sj-input="this.update()" placeholder="検索するキーワードを入力して下さい" class="books-filter" />
+      <input type="text" sj-model="this.filter" placeholder="検索するキーワードを入力して下さい" class="books-filter" />
       <input type="button" sj-disabled="!!!this.filter" sj-click="this.clear()" value="クリア" />
       <div class="books-container">
         <div sj-repeat="x in this.books">
