@@ -6,7 +6,7 @@ customElements.define('sj-books', class extends sj.Element {
       <input type="button" sj-disabled="!!!this.filter" sj-click="this.clear()" value="クリア" />
       <div class="books-container">
         <div sj-repeat="x in this.books">
-          <div class="item" sj-if="this.matched(x,this.filter)" sj-click="this.clicked($index)">{{x.name}}</div>
+          <div class="item" sj-if="this.matched(x,this.filter)" sj-click="this.clicked($index)" sj-bind="x.name">replace me</div>
         </div>
       </div>
     `;
